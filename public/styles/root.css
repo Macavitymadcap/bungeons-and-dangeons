@@ -1,0 +1,59 @@
+:root {
+  /* Colour Properties*/
+  --text-colour: #f1f1f1;
+  --primary-colour: #2196f3;
+  --secondary-colour: #333;
+  --link-colour: #2196f3;
+  --link-hover-colour: #1e88e5;
+  --card-background: rgba(85, 85, 85, 0.6);
+  --card-border: #333;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  --button-background: #525252;
+  --button-hover-background: #474747;
+  --button-primary-background: #2196f3;
+  --button-primary-hover-background: #1e88e5;
+  --button-colour: #fff;
+  --destructive-action-backgound: #db1b1b;
+  --destructive-action-hover-background: #db1b1b8e;
+  --button-disabled-background: #828282;
+  --selected-button-background: #37b527;
+  --input-background: rgba(85, 85, 85, 0.3);
+  --input-border: #444;
+  --input-hover-colour: rgba(33, 150, 243, 0.5);
+  --input-text-colour: #fff;
+
+  /* Enhanced colour system */
+  --primary-gradient: linear-gradient(135deg, #2196f3, #1e88e5b6);
+  --secondary-gradient: linear-gradient(135deg, #444, #333);
+  --surface-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+  /* Size Properties*/
+  --text-button-radius: 2em;
+  --border-radius: 0.5em;
+  --squarish-radius: 1em;
+  --input-height: 2em;
+  --button-minimum-hw: 1.5em;
+
+  /* Spacing system */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5em;
+  --spacing-md: 1em;
+  --spacing-lg: 1.5em;
+  --spacing-xl: 2em;
+
+  /* Typography Properties */
+  --font-family-sans: 'Poppins', sans-serif;
+  --font-family-fantasy: 'Charm', serif;
+  --font-size: 16px;
+
+  /* Popover Properties */
+  --popover-background: rgba(68, 68, 68, 0.6);
+  --popover-backdrop: rgba(0, 0, 0, 0.2);
+  --popover-border: rgba(255, 255, 255, 0.1);
+  --popover-blur: 12px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}

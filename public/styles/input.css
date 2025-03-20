@@ -1,0 +1,44 @@
+input[type='text'],
+input[type='number'],
+input[type='password'],
+input[type='email'],
+input[type='search'],
+textarea {
+  width: 100%;
+  font-family: var(--font-family-sans);
+  background: var(--secondary-gradient);
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  padding: 0 var(--spacing-sm);
+  color: var(--input-text-colour);
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(4px);
+  height: var(--input-height);
+
+  &:hover {
+    border-color: var(--input-hover-colour);
+  }
+
+  &:focus {
+    border-color: var(--primary-colour);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.25);
+    background: rgba(85, 85, 85, 0.4);
+  }
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+textarea {
+  box-sizing: border-box;
+  field-sizing: content;
+  min-height: 3rem;
+  max-width: 10rem;
+}

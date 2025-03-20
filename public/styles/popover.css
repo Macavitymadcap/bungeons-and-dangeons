@@ -1,0 +1,51 @@
+:popover-open {
+  width: 35vw;
+  height: fit-content;
+  border: 1px solid var(--popover-border);
+  border-radius: var(--border-radius);
+  background: var(--popover-background);
+  backdrop-filter: blur(var(--popover-blur));
+  -webkit-backdrop-filter: blur(var(--popover-blur)); /* Safari support */
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: var(--font-color);
+  animation: popover-slide 0.2s ease-out;
+  padding: 1em;
+
+  button.destructive {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: var(--spacing-sm);
+  }
+
+  /* Glass highlight effect */
+  &::before {
+    content: '';
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.05)
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
+}
+
+/* Smooth entrance animation */
+@keyframes popover-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

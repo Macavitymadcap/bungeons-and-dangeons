@@ -1,0 +1,33 @@
+table {
+  border-spacing: 0;
+  width: fit-content;
+
+  th {
+    background: var(--secondary-gradient);
+    padding: var(--spacing-sm) var(--spacing-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    justify-content: center;
+    align-items: center;
+  }
+
+  td {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color var(--transition-fast);
+  }
+
+  td.center {
+    text-align: center;
+  }
+
+  td.clickable {
+    cursor: pointer;
+  }
+
+  tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+}

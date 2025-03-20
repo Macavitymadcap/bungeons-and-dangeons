@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+@import url('styles/root.css');
+@import url('styles/article.css');
+@import url('styles/anchor.css');
+@import url('styles/button.css');
+@import url('styles/body.css');
+@import url('styles/chip.css');
+@import url('styles/footer.css');
+@import url('styles/header.css');
+@import url('styles/headings.css');
+@import url('styles/input.css');
+@import url('styles/label.css');
+@import url('styles/layout.css');
+@import url('styles/popover.css');
+@import url('styles/main.css');
+@import url('styles/table.css');
