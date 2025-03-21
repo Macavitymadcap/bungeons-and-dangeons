@@ -9,16 +9,16 @@ export class FormattingService {
       .join(' ');
   }
 
-  static convertToUriSafeString(property: string): string {
-    const rangedPropertyMatch = property.match(/(ammunition|thrown)/i);
+  static convertToUriSafeString(str: string): string {
+    const rangedPropertyMatch = str.match(/(ammunition|thrown)/i);
     if (rangedPropertyMatch) {
       return `${rangedPropertyMatch[1]}-range`;
     }
 
-    if (property.match(/versatile/i)) {
+    if (str.match(/versatile/i)) {
       return 'versatile';
     }
 
-    return property.toLowerCase().replace(' ', '-');
+    return str.toLowerCase().replace(/\s+/g, '-');
   }
 }

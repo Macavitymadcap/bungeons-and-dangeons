@@ -17,7 +17,7 @@ describe('FormattingService', () => {
   });
 
   describe('convertToUriSafeString', () => {
-    test('should return the given property if it does not contain if is a single all lowercase word', () => {
+    test('should return the given string if it is a single word all lowercase', () => {
       // Arrange
       const property = 'light';
 
@@ -39,15 +39,15 @@ describe('FormattingService', () => {
       expect(result).toBe('heavy');
     });
 
-    test('should return the given string with whitespace reaplced with hyphens', () => {
+    test('should return the given string with whitespace repalced with hyphens', () => {
       // Arrange
-      const property = 'Chain mail';
+      const property = 'Chain mail armour';
 
       // Act
       const result = FormattingService.convertToUriSafeString(property);
 
       // Assert
-      expect(result).toBe('chain-mail');
+      expect(result).toBe('chain-mail-armour');
     });
 
     test('should return "ammunition-range" given the property "ammunition (range 80/120)"', () => {
