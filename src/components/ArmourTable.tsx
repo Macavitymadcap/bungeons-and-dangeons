@@ -1,5 +1,5 @@
 import { Armour } from '../model/armour';
-import { FormattingService } from '../services/formatting-service';
+import { FormattingService } from '../services/formatting.service';
 
 interface ArmourTableProps {
   rows: Armour[];
@@ -23,6 +23,8 @@ const renderArmourCell = (key: string, value: string) => {
       </td>
     );
   }
+
+  if (key === 'description') return;
 
   return <td key={key}>{value ? String(value) : ''}</td>;
 };

@@ -1,6 +1,6 @@
 import { expect, test, describe } from 'bun:test';
 
-import { FormattingService } from './formatting-service';
+import { FormattingService } from './formatting.service';
 
 describe('FormattingService', () => {
   describe('toTileCase', () => {

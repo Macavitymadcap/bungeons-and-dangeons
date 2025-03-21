@@ -1,5 +1,5 @@
 import { CombinedWeaponProperty, WeaponTableRow } from '../model/weapon';
-import { FormattingService } from '../services/formatting-service';
+import { FormattingService } from '../services/formatting.service';
 
 interface WeaponTableProps {
   weapons: WeaponTableRow[];
