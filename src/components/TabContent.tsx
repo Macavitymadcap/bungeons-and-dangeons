@@ -10,7 +10,12 @@ interface TabContentProps {
   className?: string;
 }
 
-export const TabContent = ({ tab, armourData, weaponData, className = '' }: TabContentProps) => {
+export const TabContent = ({
+  tab,
+  armourData,
+  weaponData,
+  className = '',
+}: TabContentProps) => {
   switch (tab.toLowerCase()) {
     case 'armour':
       return armourData ? (
@@ -31,6 +36,8 @@ export const TabContent = ({ tab, armourData, weaponData, className = '' }: TabC
         <div>Loading weapon data...</div>
       );
     default:
-      return <div class={`tab-panel ${className}`}>Select a tab to view data</div>;
+      return (
+        <div class={`tab-panel ${className}`}>Select a tab to view data</div>
+      );
   }
 };

@@ -1,11 +1,13 @@
 export class FormattingService {
+  static capitaliseWord(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+  
   static toTitleCase(str: string): string {
     return str
       .toLowerCase()
       .split(' ')
-      .map(function (word) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-      })
+      .map(word => FormattingService.capitaliseWord(word))
       .join(' ');
   }
 

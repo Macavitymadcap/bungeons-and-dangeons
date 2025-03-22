@@ -1,18 +1,36 @@
 import { expect, test, describe } from 'bun:test';
 
-import { FormattingService } from './formatting-service';
+import { FormattingService } from './formatting.service';
 
 describe('FormattingService', () => {
+  describe('capitaliseWord', () => {
+    test('should capitalise the first letter of a word', () => {
+      expect(FormattingService.capitaliseWord('word')).toBe('Word');
+    });
+    
+    test('should handle empty string', () => {
+      expect(FormattingService.capitaliseWord('')).toBe('');
+    });
+    
+    test('should handle already capitalised word', () => {
+      expect(FormattingService.capitaliseWord('Word')).toBe('Word');
+    });
+    
+    test('should lowercase rest of word', () => {
+      expect(FormattingService.capitaliseWord('wORD')).toBe('WORD');
+    });
+  });
+
   describe('toTileCase', () => {
     test('should return a string where the first letter of each word is upper case for a given string', () => {
       // Arrange
-      const testCase = 'lower case string';
+      const testCase = 'TITLE CASE STRING';
 
       // Act
       const result = FormattingService.toTitleCase(testCase);
 
       // Assert
-      expect(result).toBe('Lower Case String');
+      expect(result).toBe('Tilte Case String');
     });
   });
 

@@ -1,12 +1,21 @@
-import { BaseEntity } from '../base-repository/base-repository';
+import { BaseEntity } from './base.entity';
 import { Armour } from '../../model/armour';
 
-export interface ArmourEntity extends Armour, BaseEntity {}
+/**
+ * Armour database entity
+ */
+export interface ArmourEntity extends BaseEntity, Armour {}
 
-export interface ArmourDescription {
+/**
+ * DTO for armour descriptions
+ */
+export interface ArmourDescriptionDto {
   description: string;
 }
 
+/**
+ * Initial data for the armour table
+ */
 export const ARMOURS: Armour[] = [
   {
     name: 'padded',

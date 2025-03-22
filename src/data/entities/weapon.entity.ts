@@ -1,18 +1,34 @@
-import { BaseEntity } from '../base-repository/base-repository';
-import { Weapon, WeaponProperty } from '../../model/weapon';
+import { BaseEntity } from './base.entity';
+import { Weapon, WeaponProperty, WeaponPropertyType } from '../../model/weapon';
 
+/**
+ * Weapon database entity
+ */
 export interface WeaponEntity extends BaseEntity, Weapon {}
 
+/**
+ * Weapon database row format (flattened for database storage)
+ */
 export interface WeaponDatabaseRow extends BaseEntity, Omit<Weapon, 'range'> {
-  rangeNormal: number;
-  rangeLong: number;
+  rangeNormal: number | null;
+  rangeLong: number | null;
 }
 
-export interface WeaponPropertyForWeapon
-  extends Omit<WeaponProperty, 'description'> {}
-
+/**
+ * Weapon property entity
+ */
 export interface WeaponPropertyEntity extends BaseEntity, WeaponProperty {}
 
+/**
+ * Simplified weapon property for relationships
+ */
+export interface WeaponPropertyForWeapon {
+  name: WeaponPropertyType;
+}
+
+/**
+ * Initial data for the weapons table
+ */
 export const WEAPONS: Weapon[] = [
   {
     name: 'Club',
@@ -367,6 +383,9 @@ export const WEAPONS: Weapon[] = [
   },
 ];
 
+/**
+ * Initial data for the weapon properties table
+ */
 export const WEAPON_PROPERTIES: WeaponProperty[] = [
   {
     name: 'ammunition',

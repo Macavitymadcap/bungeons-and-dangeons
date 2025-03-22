@@ -1,4 +1,4 @@
-import { FormattingService } from '../services/formatting-service';
+import { FormattingService } from '../services/formatting.service';
 
 interface HeadingAndText {
   heading: string;
