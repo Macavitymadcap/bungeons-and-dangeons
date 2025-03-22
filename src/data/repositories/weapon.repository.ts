@@ -1,11 +1,11 @@
 import { BaseRepository } from './base.repository';
-import { 
-  WeaponDatabaseRow, 
-  WeaponEntity, 
-  WeaponPropertyEntity, 
-  WeaponPropertyForWeapon, 
-  WEAPONS, 
-  WEAPON_PROPERTIES 
+import {
+  WeaponDatabaseRow,
+  WeaponEntity,
+  WeaponPropertyEntity,
+  WeaponPropertyForWeapon,
+  WEAPONS,
+  WEAPON_PROPERTIES,
 } from '../entities/weapon.entity';
 import { DbOperationResult } from '../entities/base.entity';
 import { WeaponPropertyType } from '../../model/weapon';
@@ -17,7 +17,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   constructor(dbPath?: string) {
     super('weapons', dbPath);
   }
-  
+
   protected initDb(): void {
     this.createTables();
     this.insertInitialData();
@@ -65,28 +65,28 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
     WEAPON_PROPERTIES.forEach(property => {
       const existingProperty = this.dbContext.queryOne<WeaponPropertyEntity>(
         'SELECT * FROM weapon_properties WHERE name = $name',
-        { $name: property.name }
+        { $name: property.name },
       );
-      
+
       if (!existingProperty) {
         this.dbContext.queryOne(
           `INSERT INTO weapon_properties (name, description) 
            VALUES ($name, $description)`,
-          { 
-            $name: property.name, 
-            $description: property.description 
-          }
+          {
+            $name: property.name,
+            $description: property.description,
+          },
         );
       }
     });
-    
+
     // Then insert weapons
     WEAPONS.forEach(weapon => {
       const existingWeapon = this.dbContext.queryOne<WeaponEntity>(
         'SELECT * FROM weapons WHERE name = $name',
-        { $name: weapon.name }
+        { $name: weapon.name },
       );
-      
+
       if (!existingWeapon) {
         this.create(weapon);
       }
@@ -116,7 +116,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
           $rangeNormal: weapon.range?.normal || null,
           $rangeLong: weapon.range?.long || null,
           $versatileDamageDie: weapon.versatileDamageDie || null,
-        }
+        },
       );
 
       if (result?.id) {
@@ -137,7 +137,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   private ensurePropertyExists(name: WeaponPropertyType): number {
     const existingProperty = this.dbContext.queryOne<{ id: number }>(
       'SELECT id FROM weapon_properties WHERE name = $name',
-      { $name: name }
+      { $name: name },
     );
 
     if (existingProperty) {
@@ -145,7 +145,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
     }
 
     const description = WEAPON_PROPERTIES.find(
-      weaponProperty => weaponProperty.name === name
+      weaponProperty => weaponProperty.name === name,
     )?.description;
 
     if (!description) {
@@ -155,7 +155,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
     const newProperty = this.dbContext.queryOne<{ id: number }>(
       `INSERT OR IGNORE INTO weapon_properties (name, description)
        VALUES ($name, $description) RETURNING id`,
-      { $name: name, $description: description }
+      { $name: name, $description: description },
     );
 
     return newProperty?.id || 0;
@@ -166,12 +166,12 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
    */
   private createWeaponPropertyRelation(
     weaponId: number,
-    propertyId: number
+    propertyId: number,
   ): void {
     this.dbContext.queryOne(
       `INSERT OR IGNORE INTO weapon_property_relations (weapon_id, property_id)
        VALUES ($weapon_id, $property_id)`,
-      { $weapon_id: weaponId, $property_id: propertyId }
+      { $weapon_id: weaponId, $property_id: propertyId },
     );
   }
 
@@ -181,7 +181,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   read(id: number): WeaponEntity | null {
     const weaponRow = this.dbContext.queryOne<WeaponDatabaseRow>(
       'SELECT * FROM weapons WHERE id = $id',
-      { $id: id }
+      { $id: id },
     );
 
     if (!weaponRow) return null;
@@ -195,7 +195,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
    */
   readAll(): WeaponEntity[] {
     const weaponRows = this.dbContext.query<WeaponDatabaseRow>(
-      'SELECT * FROM weapons'
+      'SELECT * FROM weapons',
     );
 
     return weaponRows.map(weaponRow => {
@@ -210,7 +210,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   readByName(name: string): WeaponEntity[] {
     const weaponRows = this.dbContext.query<WeaponDatabaseRow>(
       'SELECT * FROM weapons WHERE name LIKE $name',
-      { $name: `%${name}%` }
+      { $name: `%${name}%` },
     );
 
     const weaponsWithProperties = weaponRows.map(weaponRow => {
@@ -225,14 +225,14 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
    * Get properties for a weapon
    */
   private getWeaponPropertiesForWeapon(
-    weaponId: number
+    weaponId: number,
   ): WeaponPropertyForWeapon[] {
     const properties = this.dbContext.query<WeaponPropertyForWeapon>(
       `SELECT wp.name
        FROM weapon_properties wp
        JOIN weapon_property_relations wpr ON wp.id = wpr.property_id
        WHERE wpr.weapon_id = $weaponId`,
-      { $weaponId: weaponId }
+      { $weaponId: weaponId },
     );
 
     return properties || [];
@@ -243,7 +243,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
    */
   private combineWeaponRowWithProperties(
     weaponRow: WeaponDatabaseRow,
-    properties: WeaponPropertyForWeapon[]
+    properties: WeaponPropertyForWeapon[],
   ): WeaponEntity {
     const weaponEntity = {
       id: weaponRow.id,
@@ -273,7 +273,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   readWeaponProperty(id: number): WeaponPropertyEntity | null {
     return this.dbContext.queryOne<WeaponPropertyEntity>(
       'SELECT * FROM weapon_properties WHERE id = $id',
-      { $id: id }
+      { $id: id },
     );
   }
 
@@ -282,7 +282,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
    */
   readAllWeaponProperties(): WeaponPropertyEntity[] {
     return this.dbContext.query<WeaponPropertyEntity>(
-      'SELECT * FROM weapon_properties'
+      'SELECT * FROM weapon_properties',
     );
   }
 
@@ -292,7 +292,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   readWeaponPropertyByName(name: string): WeaponPropertyEntity[] {
     const weaponProperties = this.dbContext.query<WeaponPropertyEntity>(
       'SELECT * FROM weapon_properties WHERE name LIKE $name',
-      { $name: `%${name}%` }
+      { $name: `%${name}%` },
     );
 
     return weaponProperties || [];
@@ -304,7 +304,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   update(entity: WeaponEntity): DbOperationResult {
     return {
       success: false,
-      message: 'Update operation not implemented for weapon entities'
+      message: 'Update operation not implemented for weapon entities',
     };
   }
 
@@ -314,7 +314,7 @@ export class WeaponRepository extends BaseRepository<WeaponEntity> {
   delete(id: number): DbOperationResult {
     return {
       success: false,
-      message: 'Delete operation not implemented for weapon entities'
+      message: 'Delete operation not implemented for weapon entities',
     };
   }
 }

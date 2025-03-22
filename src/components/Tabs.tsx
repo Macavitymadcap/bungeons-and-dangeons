@@ -1,4 +1,4 @@
-import { FormattingService } from "../services/formatting.service";
+import { FormattingService } from '../services/formatting.service';
 
 interface TabsProps {
   baseRoute: string;
@@ -7,17 +7,21 @@ interface TabsProps {
   tabContent: any;
 }
 
-const renderTabListButtons = (tabHeading: string, baseRoute: string, selected: boolean) => {
+const renderTabListButtons = (
+  tabHeading: string,
+  baseRoute: string,
+  selected: boolean,
+) => {
   const safeTabName = FormattingService.convertToUriSafeString(tabHeading);
-  
+
   return (
     <button
       hx-get={`${baseRoute}${safeTabName}`}
       hx-target="#tab-container"
       hx-swap="outerHTML"
-      class={`text ${selected ? "selected" : ""}`}
+      class={`text ${selected ? 'selected' : ''}`}
       role="tab"
-      aria-selected={selected ? "true" : "false"}
+      aria-selected={selected ? 'true' : 'false'}
       aria-controls="tab-content"
     >
       {tabHeading}
@@ -25,11 +29,22 @@ const renderTabListButtons = (tabHeading: string, baseRoute: string, selected: b
   );
 };
 
-export const Tabs = ({tabHeadings, baseRoute, selectedTabHeading, tabContent}: TabsProps) => {
+export const Tabs = ({
+  tabHeadings,
+  baseRoute,
+  selectedTabHeading,
+  tabContent,
+}: TabsProps) => {
   return (
     <div id="tab-container">
       <div class="tab-list" role="tablist">
-        {tabHeadings.map(tabHeading => renderTabListButtons(tabHeading, baseRoute, selectedTabHeading === tabHeading))}
+        {tabHeadings.map(tabHeading =>
+          renderTabListButtons(
+            tabHeading,
+            baseRoute,
+            selectedTabHeading === tabHeading,
+          ),
+        )}
       </div>
 
       <div id="tab-content" role="tabpanel" class="tab-content">

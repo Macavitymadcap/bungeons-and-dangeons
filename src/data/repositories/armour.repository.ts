@@ -1,5 +1,9 @@
 import { BaseRepository } from './base.repository';
-import { ArmourDescriptionDto, ArmourEntity, ARMOURS } from '../entities/armour.entity';
+import {
+  ArmourDescriptionDto,
+  ArmourEntity,
+  ARMOURS,
+} from '../entities/armour.entity';
 import { DbOperationResult } from '../entities/base.entity';
 
 /**
@@ -9,7 +13,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
   constructor(dbPath?: string) {
     super('armour', dbPath);
   }
-  
+
   protected initDb(): void {
     this.createTables();
     this.insertInitialData();
@@ -35,9 +39,9 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
     ARMOURS.forEach(armour => {
       const existingArmour = this.dbContext.queryOne<ArmourEntity>(
         'SELECT * FROM armour WHERE name = $name',
-        { $name: armour.name }
+        { $name: armour.name },
       );
-      
+
       if (!existingArmour) {
         this.create(armour);
       }
@@ -64,7 +68,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
           $stealth: entity.stealth || null,
           $strength: entity.strength || null,
           $weight: entity.weight,
-        }
+        },
       );
 
       return result?.id || 0;
@@ -77,7 +81,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
   read(id: number): ArmourEntity | null {
     return this.dbContext.queryOne<ArmourEntity>(
       'SELECT * FROM armour WHERE id = $id',
-      { $id: id }
+      { $id: id },
     );
   }
 
@@ -94,7 +98,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
   readByName(name: string): ArmourEntity[] {
     const armours = this.dbContext.query<ArmourEntity>(
       'SELECT * FROM armour WHERE name LIKE $name',
-      { $name: `%${name}%` }
+      { $name: `%${name}%` },
     );
 
     return armours || [];
@@ -106,7 +110,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
   readDescriptionByArmourName(name: string): ArmourDescriptionDto | null {
     const description = this.dbContext.queryOne<ArmourDescriptionDto>(
       'SELECT description FROM armour WHERE name = $name',
-      { $name: name }
+      { $name: name },
     );
 
     return description || null;
@@ -118,7 +122,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
   update(entity: ArmourEntity): DbOperationResult {
     return {
       success: false,
-      message: 'Update operation not implemented for armour entities'
+      message: 'Update operation not implemented for armour entities',
     };
   }
 
@@ -128,7 +132,7 @@ export class ArmourRepository extends BaseRepository<ArmourEntity> {
   delete(id: number): DbOperationResult {
     return {
       success: false,
-      message: 'Delete operation not implemented for armour entities'
+      message: 'Delete operation not implemented for armour entities',
     };
   }
 }

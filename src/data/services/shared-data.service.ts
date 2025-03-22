@@ -9,12 +9,12 @@ import { Weapon, WeaponTableRow } from '../../model/weapon';
 export class SharedDataService {
   private armourService: ArmourService;
   private weaponService: WeaponService;
-  
+
   constructor(dbPath?: string) {
     this.armourService = new ArmourService(dbPath);
     this.weaponService = new WeaponService(dbPath);
   }
-  
+
   /**
    * Search for equipment by name (weapons and armour)
    */
@@ -24,10 +24,10 @@ export class SharedDataService {
   } {
     const armour = this.armourService.searchArmourByName(name);
     const weapons = this.weaponService.searchWeaponsByName(name);
-    
+
     return { armour, weapons };
   }
-  
+
   /**
    * Get data for tabs view
    */
@@ -48,7 +48,7 @@ export class SharedDataService {
         return {};
     }
   }
-  
+
   /**
    * Get all equipment grouped by type
    */
@@ -58,13 +58,13 @@ export class SharedDataService {
   } {
     const armourByType = this.armourService.getArmourByType();
     const weaponsByType = this.weaponService.getWeaponsByType();
-    
+
     return {
       armourByType,
-      weaponsByType
+      weaponsByType,
     };
   }
-  
+
   /**
    * Get all equipment costs for budget planning
    */
@@ -72,18 +72,20 @@ export class SharedDataService {
     armourCosts: { name: string; cost: string }[];
     weaponCosts: { name: string; cost: string }[];
   } {
-    const armourCosts = this.armourService.getAllArmour()
+    const armourCosts = this.armourService
+      .getAllArmour()
       .map(a => ({ name: a.name, cost: a.cost }));
-      
-    const weaponCosts = this.weaponService.getAllWeapons()
+
+    const weaponCosts = this.weaponService
+      .getAllWeapons()
       .map(w => ({ name: w.name, cost: w.cost }));
-      
+
     return {
       armourCosts,
-      weaponCosts
+      weaponCosts,
     };
   }
-  
+
   /**
    * Close all database connections
    */

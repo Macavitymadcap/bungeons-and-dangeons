@@ -7,5 +7,5 @@ export const DB_CONFIG = {
   options: {
     create: true,
     readonly: false,
-  }
+  },
 };

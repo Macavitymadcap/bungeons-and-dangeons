@@ -8,11 +8,11 @@ import { DB_CONFIG } from '../config/db-config';
 export class DbContext {
   private static instance: DbContext;
   private db: Database;
-  
+
   private constructor(path: string = DB_CONFIG.path) {
     this.db = new Database(path, DB_CONFIG.options);
   }
-  
+
   /**
    * Get the singleton database context instance
    */
@@ -22,14 +22,7 @@ export class DbContext {
     }
     return DbContext.instance;
   }
-  
-  /**
-   * Close the database connection
-   */
-  public close(): void {
-    this.db.close();
-  }
-  
+
   /**
    * Execute SQL query with parameters and return all matching rows
    */
@@ -40,7 +33,7 @@ export class DbContext {
     }
     return statement.all() as T[];
   }
-  
+
   /**
    * Execute SQL query with parameters and return the first matching row
    */
@@ -51,35 +44,14 @@ export class DbContext {
     }
     return statement.get() as T | null;
   }
-  
+
   /**
    * Execute SQL statement without returning results
    */
   public execute(sql: string): void {
     this.db.exec(sql);
   }
-  
-  /**
-   * Begin a database transaction
-   */
-  public beginTransaction(): void {
-    this.db.exec('BEGIN TRANSACTION');
-  }
-  
-  /**
-   * Commit a database transaction
-   */
-  public commitTransaction(): void {
-    this.db.exec('COMMIT');
-  }
-  
-  /**
-   * Rollback a database transaction
-   */
-  public rollbackTransaction(): void {
-    this.db.exec('ROLLBACK');
-  }
-  
+
   /**
    * Execute function within a transaction
    */
@@ -93,5 +65,33 @@ export class DbContext {
       this.rollbackTransaction();
       throw error;
     }
+  }
+
+  /**
+   * Begin a database transaction
+   */
+  public beginTransaction(): void {
+    this.db.exec('BEGIN TRANSACTION');
+  }
+
+  /**
+   * Commit a database transaction
+   */
+  public commitTransaction(): void {
+    this.db.exec('COMMIT');
+  }
+
+  /**
+   * Rollback a database transaction
+   */
+  public rollbackTransaction(): void {
+    this.db.exec('ROLLBACK');
+  }
+
+  /**
+   * Close the database connection
+   */
+  public close(): void {
+    this.db.close();
   }
 }
